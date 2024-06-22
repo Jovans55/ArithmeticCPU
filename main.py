@@ -41,6 +41,10 @@ def runControlUnit():
             instruction = input(
                 "Invalid input: expected a number but got a string or float/decimal. Please try again.\n")
             runControlUnit()
+        elif isinstance(e, IndexError):
+            instruction = input(
+                "Index error: this means you added a semicolon to the end of a query. Don't do that, it's wrong stop. Try again!\n")
+            runControlUnit()
         else:
             raise Exception(e)
     print(result)

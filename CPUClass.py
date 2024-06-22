@@ -8,6 +8,14 @@ class CPU:
 
     def controlUnit(self, instruction):
         print("Preparing instruction for processing")
+
+        # Oh yeahhhh you can chain commands
+        if ';' in instruction:
+            instructionArray = instruction.split(";")
+            for text in instructionArray:
+                self.controlUnit(text)
+            return self.memory
+
         instructionArray = instruction.split()
 
         if "showMem" == instructionArray[0]:
