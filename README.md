@@ -6,7 +6,7 @@ You need to input the instructions as if it's assembly this read me will explain
 
 # Commands
 
-if theres an s at the end that means the result will be stored in the memory you choose
+if theres an s at the end that means the result will be stored in the address you choose
 
 Examples will be what follows after --
 
@@ -73,7 +73,7 @@ By just adding a semicolon ; to the end of the command you chain commans.
 ```
 Example: store 5 1;store 3 2; muls 1 2 3
 
-This command will store 5 and 3 in address 1 and 2. Then multiply and them bot and store them in address 3. Like I said it's getting crazy.
+This command will store 5 and 3 in address 1 and 2. Then multiply and them both and store them in address 3. Like I said it's getting crazy.
 ```
 
 #### Note
