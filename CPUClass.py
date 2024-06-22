@@ -20,10 +20,10 @@ class CPU:
         else:
             while len(instructionArray) < 4:
                 instructionArray.append(None)
-            self.ALU(instructionArray[0], instructionArray[1],
-                     instructionArray[2], instructionArray[3])
+            return self.ALU(instructionArray[0], instructionArray[1],
+                            instructionArray[2], instructionArray[3])
 
-    def ALU(self, op, val1, val2, location, store):
+    def ALU(self, op, val1, val2, store):
         print("Starting arithmetic & logic unit")
 
         # I used (if in) here before but I think this is more optimized and stops stuff like addiuigs from passing
@@ -48,48 +48,59 @@ class CPU:
             var2 = self.memoryUnit("retrieve", val2)
             result = var1 * var2
         elif "store" == op:
-            self.memoryUnit("store", store, val1)
-        elif "retrive" == op:
-            self.memoryUnit("retrive", val1)
+            self.memoryUnit("store", val2, val1)
+            return self.memory
+        elif "retrieve" == op:
+            return self.memoryUnit("retrieve", val1)
         elif "del" == op:
             self.memoryUnit("del", val1)
+            return self.memory
         else:
             raise Exception("Invalid instruction")
 
         if op[-1] == "s":
-            self.memoryUnit("store", result, location)
+            self.memoryUnit("store", store, result)
+            return self.memory
+        else:
+            return result
 
     def memoryUnit(self, insturction, store, val=None):
         print("Accessing memory unit")
 
         if insturction == "store":
+            cacheAddress = self.getCacheAddress(store)
+            self.cache[cacheAddress] = [store, int(val)]
+            self.memory[int(store) - 1] = int(val)
             print(f"Successfully stored result in {store}")
         elif insturction == "retrieve":
-            print("Checking the cache")
-            if int(store[-1]) > 0 and int(store[-1]) <= 4:
-                cacheVal = self.cache[0]
-            elif int(store[-1]) > 4 and int(store[-1]) <= 8:
-                cacheVal = self.cache[1]
-            elif int(store[-1]) > 8 and int(store[-1]) <= 12:
-                cacheVal = self.cache[2]
-            elif int(store[-1]) > 13 and int(store[-1]) <= 16:
-                cacheVal = self.cache[3]
-            else:
-                raise Exception("Invalid Store")
             print(f"Retrieving data from {store}")
-        elif insturction == "del":
-            print(f"Checking the cache in case {
-                  store} data resides there as well")
-            if int(store[-1]) > 0 and int(store[-1]) <= 4:
-                cacheVal = self.cache[0]
-            elif int(store[-1]) > 4 and int(store[-1]) <= 8:
-                cacheVal = self.cache[1]
-            elif int(store[-1]) > 8 and int(store[-1]) <= 12:
-                cacheVal = self.cache[2]
-            elif int(store[-1]) > 13 and int(store[-1]) <= 16:
-                cacheVal = self.cache[3]
+            cacheAddress = self.getCacheAddress(store)
+            cacheVal = self.cache[cacheAddress]
+            if cacheVal[0] == store:
+                return cacheVal[1]
             else:
-                raise Exception("Invalid Store")
+                var = self.memory[int(store) - 1]
+                self.cache[cacheAddress] = [store, var]
+                if var == None:
+                    raise Exception("No variable")
+                return var
+        elif insturction == "del":
+            cacheAddress = self.getCacheAddress(store)
+            self.cache[cacheAddress] = [None, None]
+            self.memory[int(store) - 1] = None
             print(f"Successfully deleted data from {store}")
         else:
             raise Exception("Invalid instruction")
+
+    def getCacheAddress(self, store):
+        print("Checking the cache")
+        if int(store) > 0 and int(store) <= 4:
+            return 0
+        elif int(store) > 4 and int(store) <= 8:
+            return 1
+        elif int(store) > 8 and int(store) <= 12:
+            return 2
+        elif int(store) > 13 and int(store) <= 16:
+            return 3
+        else:
+            raise Exception("Invalid Store")
