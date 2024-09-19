@@ -1,12 +1,12 @@
 # ArithmeticCPU
 
-Just wanted to make a cpu LOL. (WITH COMMAND CHAINING)
+Just a cpu LOL.
 
 You need to input the instructions as if it's assembly this read me will explain how!
 
 # Commands
 
-if theres an s at the end that means the result will be stored in the address you choose
+If theres an s at the end that means the result will be stored in the address you choose
 
 Examples will be what follows after --
 
@@ -66,14 +66,14 @@ showCache
 
 ### Time to get crazy
 
-Yes you read that right it's getting crazy up in here! You can chain commands, it was bugging me how much I need to type so I fixed it!
+Yes you read that right it's getting crazy up in here! You can chain commands, it was annoying how much I typing is needed so I fixed it!
 
 By just adding a semicolon ; to the end of the command you chain commans.
 
 ```
 Example: store 5 1;store 3 2; muls 1 2 3
 
-This command will store 5 and 3 in address 1 and 2. Then multiply and them both and store them in address 3. Like I said it's getting crazy.
+This command will store 5 and 3 in address 1 and 2. Then multiply them both and store them in address 3. Like I said it's getting crazy.
 ```
 
 #### Note
