@@ -66,7 +66,7 @@ showCache
 
 ### Time to get crazy
 
-Yes you read that right it's getting crazy up in here! You can chain commands, it was annoying how much I typing is needed so I fixed it!
+Yes you read that right it's getting crazy up in here! You can chain commands, it was annoying how much typing is needed so I fixed it!
 
 By just adding a semicolon ; to the end of the command you chain commans.
 
